@@ -1,0 +1,905 @@
+﻿<Window x:Class="Account_Manager.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:model="clr-namespace:Account_Manager.Model"
+        mc:Ignorable="d"
+        Title="Account Manager" 
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None"
+        ResizeMode="CanResizeWithGrip"
+        Height="900" Width="1600" 
+        MinHeight="900" MinWidth="1600"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Buttons.xaml"/>
+                <ResourceDictionary Source="/Styles/DataGrid.xaml"/>
+                <ResourceDictionary Source="/Styles/Shared.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <model:ColorConverter x:Key="ColorConverter"/>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Border x:Name="MainBorder" Background="{DynamicResource Border.Primary}" CornerRadius="10" BorderThickness="1" BorderBrush="#FF3C3C3C">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="830"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+
+            <Border x:Name="DragBar" MouseDown="DragBar_MouseDown" Background="Transparent" Grid.Column="0" Grid.ColumnSpan="9" Grid.Row="0" Grid.RowSpan="5"></Border>
+
+            <Border x:Name="UserProfilBorder" Grid.Column="1" Grid.RowSpan="3" Grid.Row="1" Background="{StaticResource Border.Secoundary}" CornerRadius="5 5 5 5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="0"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Button Focusable="False" x:Name="UserProfilImageBorder" Click="UserProfilImageBorder_Click" Height="90" Width="90" Style="{StaticResource Button.Gray80.Over100}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel>
+                                <Image x:Name="UserProfilImage" Stretch="UniformToFill" Height="80" Width="80" Cursor="Hand" Visibility="Collapsed"/>
+                                <fa:IconImage x:Name="DefualtUserProfilImage" Icon="UserCircle" Height="80" Width="80" Cursor="Hand" IconFont="Solid" Foreground="{StaticResource white-220}"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 0 0">
+                        <TextBlock x:Name="Username" Text="Luzifer" FontWeight="Normal" TextWrapping="WrapWithOverflow" Foreground="{StaticResource white-220}" FontSize="14" FontFamily="pack://application:,,,/assets/fonts/#Poppins" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Top" Margin="0 0 0 0">
+                        <TextBlock x:Name="StoredAccounts" Text="666 Accounts" Foreground="{StaticResource Foreground.Detail}" FontSize="12" FontFamily="pack://application:,,,/assets/fonts/#Poppins" />
+                    </StackPanel>
+
+                    <Button Focusable="False" ToolTip="Abmelden" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" x:Name="SignOutBtn" Click="SignOutBtn_Click" Style="{StaticResource Button.Gray80.Over100}" Width="120" Height="30" VerticalAlignment="Bottom">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <fa:IconImage Icon="SignOut" Foreground="{StaticResource white-220}" Width="15" Height="15"/>
+                            <Label Content="Abmelden" Foreground="{StaticResource white-220}" FontSize="12" FontFamily="pack://application:,,,/assets/fonts/#Poppins" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <Border x:Name="UserSettingsWindow" HorizontalAlignment="Left" Width="0" IsHitTestVisible="False" Grid.Column="5" Grid.RowSpan="3" Grid.Row="1" CornerRadius="{StaticResource cr-default}" Background="{DynamicResource Border.Secoundary}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="0"/>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+
+                    <Border x:Name="UserSettingsBox_1" Visibility="Visible" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Background="{DynamicResource gray-80}" CornerRadius="{StaticResource cr-default}">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                            <Border Margin="0 10 0 0" Height="30" Width="195" ToolTip="Benutername" CornerRadius="{StaticResource cr-5}" Background="Gainsboro">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock x:Name="CurrentUsername" Height="auto" Width="165" Padding="5" FontSize="12" Foreground="{DynamicResource Foreground.Secoundary}" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Background="Transparent"/>
+                                        <fa:IconImage Icon="UserCircle" IconFont="Solid" Height="20" Width="20" Foreground="{StaticResource gray-30}"/>
+                                    </StackPanel>
+                                </Border>
+
+
+                            <Border Margin="0 10 0 0" Height="30" Width="195" ToolTip="E-Mail" CornerRadius="{StaticResource cr-5}" Background="Gainsboro">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBox VerticalContentAlignment="Center" x:Name="CurrentEmail" Padding="5" Height="30" Width="165" Background="Transparent" BorderThickness="0"/>
+                                    <fa:IconImage Icon="MailBulk" IconFont="Solid" Height="20" Width="20" Foreground="{StaticResource gray-30}"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <Border x:Name="UserSettingsBox_2" Visibility="Visible" Grid.Column="3" Grid.Row="1" Grid.RowSpan="3" Background="{DynamicResource gray-80}" CornerRadius="{StaticResource cr-default}">
+                        <StackPanel Orientation="Vertical">
+                            <Border Margin="0 10 0 0" Height="30" Width="195" ToolTip="Neues Passwort" CornerRadius="{StaticResource cr-5}" Background="Gainsboro">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <PasswordBox VerticalContentAlignment="Center" x:Name="CurrentPassword" Height="30" Padding="5" Width="165" Background="Transparent" BorderThickness="0"/>
+                                    <fa:IconImage Icon="Key" IconFont="Solid" Height="20" Width="20" Foreground="{StaticResource gray-30}"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Margin="0 10 0 0" Height="30" Width="195" ToolTip="Neues Passwort wiederholen" CornerRadius="{StaticResource cr-5}" Background="Gainsboro">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <PasswordBox VerticalContentAlignment="Center" x:Name="RepeatPassword" Height="30" Width="165" Padding="5" Background="Transparent" BorderThickness="0"/>
+                                    <fa:IconImage Icon="Recycle" IconFont="Solid" Height="20" Width="20" Foreground="{StaticResource gray-30}"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <Button Focusable="False" x:Name="DumpThisDataBase" ToolTip="Datenbank Exportieren" Click="DumpThisDataBase_Click" Style="{StaticResource Button.Gray80.Over100}" Grid.Column="5" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="40">
+                        <fa:IconImage Icon="Database" Foreground="Gainsboro" Height="20" Width="20"/>
+                    </Button>
+
+                    <Button Focusable="False" x:Name="DeleteDataBase" ToolTip="Datenbank löschen" Click="DeleteDataBase_Click" Style="{StaticResource Button.Gray80.Over100}" Grid.Column="5" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="40" Width="40">
+                        <fa:IconImage Icon="Trash" Foreground="Gainsboro" Height="20" Width="20"/>
+                    </Button>
+
+
+                    <Button Focusable="False" x:Name="CreateDatabaseBackup" ToolTip="Backup erstellen" Click="CreateDatabaseBackup_Click" Style="{StaticResource Button.Gray80.Over100}" Grid.Column="7" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="40">
+                        <fa:IconImage Icon="CloudArrowDown" Foreground="Gainsboro" Height="20" Width="20"/>
+                    </Button>
+
+                    <Button Focusable="False" x:Name="LoadDatabaseBackup" ToolTip="Backup Laden" Click="LoadDatabaseBackup_Click" Style="{StaticResource Button.Gray80.Over100}" Grid.Column="7" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="40" Width="40">
+                        <fa:IconImage Icon="CloudArrowUp" Foreground="Gainsboro" Height="20" Width="20"/>
+                    </Button>
+
+
+                    <Button Focusable="False" x:Name="ExportCSV" ToolTip="CSV erstellen" Click="ExportCSV_Click" Style="{StaticResource Button.Gray80.Over100}" Grid.Column="9" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="40">
+                        <fa:IconImage Icon="FileExport" Foreground="Gainsboro" Height="20" Width="20"/>
+                    </Button>
+
+                    <Button Focusable="False" x:Name="ImportCSV" ToolTip="CSV Laden" Click="ImportCSV_Click" Style="{StaticResource Button.Gray80.Over100}" Grid.Column="9" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="40" Width="40">
+                        <fa:IconImage Icon="FileImport" Foreground="Gainsboro" Height="20" Width="20"/>
+                    </Button>
+
+                    <ToggleButton Style="{StaticResource ToggleButton.Checked100.Unchecked80}" Focusable="False" x:Name="SortAZ" Checked="SortAZ_Checked" Unchecked="SortAZ_Unchecked" ToolTip="Sortieren" Grid.Column="11" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="40">
+                        <fa:IconImage Icon="ArrowDownAZ" Foreground="Gainsboro" Height="20" Width="20"/>
+                    </ToggleButton>
+
+                    <ToggleButton Style="{StaticResource ToggleButton.Checked100.Unchecked80}" Focusable="False" x:Name="ShowInfo" Checked="ShowInfo_Checked" Unchecked="ShowInfo_Unchecked" ToolTip="Info Anzeigen" Grid.Column="13" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="40">
+                        <fa:IconImage Icon="Eye" Foreground="Gainsboro" Height="20" Width="20"/>
+                    </ToggleButton>
+
+                    <Button Focusable="False" x:Name="AutosavePath" ToolTip="Autosave-Pfad" Click="AutosavePath_Click" Style="{StaticResource Button.Gray80.Over100}" Grid.Column="11" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="40" Width="40">
+                        <fa:IconImage x:Name="AutoSaveIcon" Icon="Save" Foreground="Gainsboro" Height="20" Width="20"/>
+
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem x:Name="DeaktivateAutosave" Header="Autosave Deaktivieren" Click="DeaktivateAutosave_Click"/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+
+                    <Button Focusable="False" x:Name="CostumBorderColor" ToolTip="Fensterfarbe anpassen" Click="CostumBorderColor_Click" Style="{StaticResource Button.Gray80.Over100}" Grid.Column="13" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Bottom" Height="40">
+                        <fa:IconImage Icon="EyeDropper" Height="20" Width="20" Foreground="{StaticResource white-220}"/>
+                    </Button>
+
+                    <Button Focusable="False" x:Name="SaveUserSettings" Click="SaveUserSettings_Click" Style="{StaticResource Button.Gray80.Over100}" Grid.Column="15" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top" Height="40">
+                        <TextBlock Text="Speichern" FontSize="12" FontFamily="pack://application:,,,/assets/fonts/#Poppins"/>
+                    </Button>
+
+                    <Button Focusable="False" x:Name="CloseUserSettings" Click="CloseUserSettings_Click" Style="{StaticResource Button.Gray80.Over100}" Grid.Column="15" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Bottom" Height="40">
+                        <TextBlock Text="Schließen" FontSize="12" FontFamily="pack://application:,,,/assets/fonts/#Poppins"/>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <Border x:Name="AddDelLockBorder" Grid.Column="3" Grid.Row="1" Grid.RowSpan="3">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                    <StackPanel>
+                        <Button Focusable="False" x:Name="AddAccountBtn" ToolTip="Eintrag hinzufügen" Click="AddAccountBtn_Click" Style="{StaticResource Button.Gray60.Over80}" Width="30" Height="30" VerticalAlignment="Top">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <fa:IconImage Icon="Plus" Foreground="Green" Width="15" Height="15"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Margin="0 10 0 10">
+                        <Button Focusable="False" x:Name="PasswordGenerationBtn" ToolTip="Passwort generieren" Click="PasswordGenerationBtn_Click" Style="{StaticResource Button.Gray60.Over80}" Width="30" Height="30" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <fa:IconImage Icon="Lock" Foreground="{StaticResource white-220}" Width="15" Height="15"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <Button Focusable="False" x:Name="UserSettings" Click="UserSettings_Click" ToolTip="Statistik" Style="{StaticResource Button.Gray60.Over80}" Width="30" Height="30" VerticalAlignment="Bottom">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <fa:IconImage Icon="Gear" Foreground="{StaticResource white-220}" Width="15" Height="15"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border x:Name="AddWindow" HorizontalAlignment="Left" Width="0" IsHitTestVisible="False" Grid.Column="5" Grid.RowSpan="3" Grid.Row="1" CornerRadius="{StaticResource cr-default}" Background="{DynamicResource Border.Secoundary}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="160"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+
+
+                    <Border Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Height="25" Width="210" CornerRadius="{StaticResource cr-5}" Background="Gainsboro" VerticalAlignment="Top">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBox Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" Text="Anwendung" Foreground="Gray" x:Name="Tb_app" GotFocus="Tb_app_GotFocus" LostFocus="Tb_app_LostFocus" FontStyle="Italic" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Width="200" Height="20"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="1" Height="25" Width="210" CornerRadius="{StaticResource cr-5}" Background="Gainsboro" VerticalAlignment="Top">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBox Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" Text="Website" Foreground="Gray" x:Name="Tb_link" GotFocus="Tb_link_GotFocus" LostFocus="Tb_link_LostFocus" FontStyle="Italic" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Width="200" Height="20"/>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border Grid.Column="1" Grid.Row="2" Height="25" Width="210" CornerRadius="{StaticResource cr-5}" Background="Gainsboro" VerticalAlignment="Center">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBox Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" Text="Benutzername" x:Name="Tb_appusername" GotFocus="Tb_appusername_GotFocus" LostFocus="Tb_appusername_LostFocus" FontStyle="Italic" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Width="200" Height="20" Foreground="Gray"/>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border x:Name="Tb_apppassword_pwSafty" Grid.Column="1" Grid.Row="3" Height="25" Width="210" CornerRadius="{StaticResource cr-5}" Background="Gainsboro" VerticalAlignment="Bottom">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBox TextChanged="Tb_apppassword_TextChanged" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" Text="Passwort" x:Name="Tb_apppassword" GotFocus="Tb_apppassword_GotFocus" LostFocus="Tb_apppassword_LostFocus" FontStyle="Italic" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Width="200" Height="20" Foreground="Gray"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="3" Grid.Row="2" Height="25" Width="210" CornerRadius="{StaticResource cr-5}" Background="Gainsboro" VerticalAlignment="Center">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBox Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" Text="E-Mail" x:Name="Tb_appemail" GotFocus="Tb_appemail_GotFocus" LostFocus="Tb_appemail_LostFocus" FontStyle="Italic" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Width="200" Height="20" Foreground="Gray"/>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border x:Name="Tb_appemailpassword_pwSafty" Grid.Column="3" Grid.Row="3" Height="25" Width="210" CornerRadius="{StaticResource cr-5}" Background="Gainsboro" VerticalAlignment="Bottom">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBox TextChanged="Tb_appemailpassword_TextChanged" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" Text="E-Mail Passwort" x:Name="Tb_appemailpassword" GotFocus="Tb_appemailpassword_GotFocus" LostFocus="Tb_appemailpassword_LostFocus" FontStyle="Italic" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Width="200" Height="20" Foreground="Gray"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="5" Grid.Row="1" Grid.RowSpan="2" Height="57.5" Width="160" CornerRadius="{StaticResource cr-5}" Background="Gainsboro" VerticalAlignment="Top">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBox Background="Transparent" BorderThickness="0" Padding="5" Text="Info" x:Name="Tb_appinfo" GotFocus="Tb_appinfo_GotFocus" LostFocus="Tb_appinfo_LostFocus" FontStyle="Italic" FontFamily="pack://application:,,,/assets/fonts/#Poppins" TextWrapping="Wrap" Width="160" Height="60" Foreground="Gray"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="5" Grid.Row="3" Height="25" Width="160" CornerRadius="{StaticResource cr-5}" Background="Gainsboro" VerticalAlignment="Bottom">
+                        <StackPanel VerticalAlignment="Center">
+                            <ComboBox x:Name="Cb_appTag" Style="{StaticResource ComboBoxFlatStyle}" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Padding="5" Height="25" Width="155" HorizontalAlignment="Right" BorderThickness="0">
+                                <ComboBoxItem IsEnabled="False" Visibility="Collapsed" IsSelected="True" Foreground="Gray" FontFamily="pack://application:,,,/assets/fonts/#Poppins" FontStyle="Italic">Kategorie</ComboBoxItem>
+                                <ComboBoxItem Content="Spiele"/>
+                                <ComboBoxItem Content="Soziale Medien"/>
+                                <ComboBoxItem Content="Streaming"/>
+                                <ComboBoxItem Content="Shopping"/>
+                                <ComboBoxItem Content="Finanzen"/>
+                                <ComboBoxItem Content="Sonstige"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </Border>
+
+                    <Button Focusable="False" x:Name="StoreFile" ToolTip="Datei angängen" Click="StoreFile_Click"  Grid.Column="6" Grid.Row="1" Grid.RowSpan="2" Style="{StaticResource Button.Gray80.Over100}" Width="40" Height="40" VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <fa:IconImage x:Name="StoreFileIcon" Icon="File" Height="25" Width="25" Foreground="{StaticResource white-220}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Focusable="False" x:Name="ColorPickerBtn" ToolTip="Farblich markieren" Click="ColorPicker_Click"  Grid.Column="6" Grid.Row="2" Grid.RowSpan="2" Margin="0 0 0 0" Style="{StaticResource Button.Gray80.Over100}" Width="40" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <fa:IconImage x:Name="ColorPickerIcon" Icon="EyeDropperEmpty" Height="25" Width="25" Foreground="{StaticResource white-220}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Focusable="False" x:Name="AccountAddBtn" Click="AccountAddBtn_Click"  Grid.Column="7" Grid.Row="1" Grid.RowSpan="2" Margin="0 0 0 10" Style="{StaticResource Button.Gray80.Over100}" Width="100" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Label Content="Speichern" Foreground="{StaticResource white-220}" FontSize="12" FontFamily="pack://application:,,,/assets/fonts/#Poppins"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Focusable="False" x:Name="AccountAddCancelBtn" Click="AccountAddCancelBtn_Click" Grid.Column="7" Grid.Row="2" Grid.RowSpan="2" Style="{StaticResource Button.Gray80.Over100}" Width="100" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Label Content="Schließen" Foreground="{StaticResource white-220}" FontSize="12" FontFamily="pack://application:,,,/assets/fonts/#Poppins"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <Border x:Name="EditWindow" HorizontalAlignment="Left" Width="0" IsHitTestVisible="False" Grid.Column="5" Grid.RowSpan="3" Grid.Row="1" CornerRadius="{StaticResource cr-default}" Background="{DynamicResource Border.Secoundary}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="160"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Height="25" Width="210" CornerRadius="{StaticResource cr-5}" Background="Gainsboro" VerticalAlignment="Top">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBox Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" Text="Anwendung" Foreground="Gray" x:Name="Tb_app_edit" GotFocus="Tb_app_edit_GotFocus" LostFocus="Tb_app_edit_LostFocus" FontStyle="Italic" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Width="200" Height="20"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="1" Height="25" Width="210" CornerRadius="{StaticResource cr-5}" Background="Gainsboro" VerticalAlignment="Top">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBox Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" Text="Website" Foreground="Gray" x:Name="Tb_link_edit" GotFocus="Tb_link_edit_GotFocus" LostFocus="Tb_link_edit_LostFocus" FontStyle="Italic" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Width="200" Height="20"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="1" Grid.Row="2" Height="25" Width="210" CornerRadius="{StaticResource cr-5}" Background="Gainsboro" VerticalAlignment="Center">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBox Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" Text="Benutzername" x:Name="Tb_appusername_edit" GotFocus="Tb_appusername_edit_GotFocus" LostFocus="Tb_appusername_edit_LostFocus" FontStyle="Italic" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Width="200" Height="20" Foreground="Gray"/>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border x:Name="Tb_apppassword_pwSafty_edit" Grid.Column="1" Grid.Row="3" Height="25" Width="210" CornerRadius="{StaticResource cr-5}" Background="Gainsboro" VerticalAlignment="Bottom">
+                        <StackPanel VerticalAlignment="Center">
+                            <PasswordBox PasswordChanged="Tb_apppassword_edit_PasswordChanged" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" PasswordChar="●" Password="Passwort" x:Name="Tb_apppassword_edit" GotFocus="Tb_apppassword_edit_GotFocus" LostFocus="Tb_apppassword_edit_LostFocus" FontStyle="Italic" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Width="200" Height="20" Foreground="Gray"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="3" Grid.Row="2" Height="25" Width="210" CornerRadius="{StaticResource cr-5}" Background="Gainsboro" VerticalAlignment="Center">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBox Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" Text="E-Mail" x:Name="Tb_appemail_edit" GotFocus="Tb_appemail_edit_GotFocus" LostFocus="Tb_appemail_edit_LostFocus" FontStyle="Italic" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Width="200" Height="20" Foreground="Gray"/>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border x:Name="Tb_appemailpassword_pwSafty_edit" Grid.Column="3" Grid.Row="3" Height="25" Width="210" CornerRadius="{StaticResource cr-5}" Background="Gainsboro" VerticalAlignment="Bottom">
+                        <StackPanel VerticalAlignment="Center">
+                            <PasswordBox PasswordChanged="Tb_appemailpassword_edit_PasswordChanged" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" PasswordChar="●" Password="E-Mail Passwort" x:Name="Tb_appemailpassword_edit" GotFocus="Tb_appemailpassword_edit_GotFocus" LostFocus="Tb_appemailpassword_edit_LostFocus" FontStyle="Italic" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Width="200" Height="20" Foreground="Gray"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="5" Grid.Row="1" Grid.RowSpan="2" Height="57.5" Width="160" CornerRadius="{StaticResource cr-5}" Background="Gainsboro" VerticalAlignment="Top">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBox Background="Transparent" BorderThickness="0" Padding="5" Text="Info" x:Name="Tb_appinfo_edit" GotFocus="Tb_appinfo_edit_GotFocus" LostFocus="Tb_appinfo_edit_LostFocus" FontStyle="Italic" FontFamily="pack://application:,,,/assets/fonts/#Poppins" TextWrapping="Wrap" Width="160" Height="60" Foreground="Gray"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="5" Grid.Row="3" Height="25" Width="160" CornerRadius="{StaticResource cr-5}" Background="Gainsboro" VerticalAlignment="Bottom">
+                        <StackPanel VerticalAlignment="Center">
+                            <ComboBox x:Name="Cb_appTag_edit" Style="{StaticResource ComboBoxFlatStyle}" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Padding="5" Height="25" Width="155" HorizontalAlignment="Right" BorderThickness="0">
+                                <ComboBoxItem IsEnabled="False" Visibility="Collapsed" IsSelected="True" Foreground="Gray" FontFamily="pack://application:,,,/assets/fonts/#Poppins" FontStyle="Italic">Kategorie</ComboBoxItem>
+                                <ComboBoxItem Content="Spiele"/>
+                                <ComboBoxItem Content="Soziale Medien"/>
+                                <ComboBoxItem Content="Streaming"/>
+                                <ComboBoxItem Content="Shopping"/>
+                                <ComboBoxItem Content="Finanzen"/>
+                                <ComboBoxItem Content="Sonstige"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </Border>
+
+                    <Button Focusable="False" x:Name="StoreFile_edit" ToolTip="Datei ersetzen" Click="StoreFile_edit_Click"  Grid.Column="6" Grid.Row="1" Grid.RowSpan="2" Style="{StaticResource Button.Gray80.Over100}" Width="40" Height="40" VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <fa:IconImage x:Name="StoreFileIcon_edit" Icon="File" Height="25" Width="25" Foreground="{StaticResource white-220}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Focusable="False" x:Name="ColorPickerBtn_edit" ToolTip="Farblich markieren" Click="ColorPickerBtn_edit_Click"  Grid.Column="6" Grid.Row="2" Grid.RowSpan="2" Margin="0 0 0 0" Style="{StaticResource Button.Gray80.Over100}" Width="40" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <fa:IconImage x:Name="ColorPickerIcon_edit" Icon="EyeDropperEmpty" Height="25" Width="25" Foreground="{StaticResource white-220}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Focusable="False" x:Name="AccountAddBtn_edit" Click="AccountAddBtn_edit_Click"  Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" Margin="0 0 0 10" Style="{StaticResource Button.Gray80.Over100}" Width="100" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Label Content="Speichern" Foreground="{StaticResource white-220}" FontSize="12" FontFamily="pack://application:,,,/assets/fonts/#Poppins"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Focusable="False" x:Name="AccountAddCancelBtn_edit" Click="AccountAddCancelBtn_edit_Click" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="2" Style="{StaticResource Button.Gray80.Over100}" Width="100" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Label Content="Schließen" Foreground="{StaticResource white-220}" FontSize="12" FontFamily="pack://application:,,,/assets/fonts/#Poppins"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <Border x:Name="PasswordGeneratorWindow" HorizontalAlignment="Left" Width="0" IsHitTestVisible="False" Grid.Column="5" Grid.RowSpan="3" Grid.Row="1" CornerRadius="{StaticResource cr-default}" Background="{DynamicResource Border.Secoundary}">
+                <Grid Cursor="">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Background="Transparent" CornerRadius="{StaticResource cr-5}">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <RadioButton Style="{StaticResource ButtonLikeRadioButtonStyle2}" x:Name="rb_8" FontSize="12" Content="8 Zeichen" IsChecked="True" Foreground="{StaticResource white-220}" Width="100" Height="20" Margin="0 0 0 3"/>
+                            <RadioButton Style="{StaticResource ButtonLikeRadioButtonStyle2}" x:Name="rb_12" FontSize="12" Content="12 Zeichen" Foreground="{StaticResource white-220}" Width="100" Height="20" Margin="0 0 0 3"/>
+                            <RadioButton Style="{StaticResource ButtonLikeRadioButtonStyle2}" x:Name="rb_16" FontSize="12" Content="16 Zeichen" Foreground="{StaticResource white-220}" Width="100" Height="20" Margin="0 0 0 3"/>
+                            <RadioButton Style="{StaticResource ButtonLikeRadioButtonStyle2}" x:Name="rb_20" FontSize="12" Content="20 Zeichen" Foreground="{StaticResource white-220}" Width="100" Height="20"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="3" Grid.Row="1" Grid.RowSpan="3" Background="Transparent" CornerRadius="{StaticResource cr-5}">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <ToggleButton Style="{StaticResource ToggleButtonStyle}" Height="20" Width="140" x:Name="cb_sonderzeichen" IsChecked="True" FontSize="12" Content="Sonderzeichen" Foreground="{StaticResource white-220}" Margin="0 0 0 3"/>
+                            <ToggleButton Style="{StaticResource ToggleButtonStyle}" Height="20" Width="140" x:Name="cb_grosbuchstaben" IsChecked="True" FontSize="12" Content="Großbuchstaben" Foreground="{StaticResource white-220}" Margin="0 0 0 3"/>
+                            <ToggleButton Style="{StaticResource ToggleButtonStyle}" Height="20" Width="140" x:Name="cb_kleinbuchstaben" IsChecked="True" FontSize="12" Content="Kleinbuchstaben" Foreground="{StaticResource white-220}" Margin="0 0 0 3"/>
+                            <ToggleButton Style="{StaticResource ToggleButtonStyle}" Height="20" Width="140" x:Name="cb_zahlen" IsChecked="True" FontSize="12" Content="Zahlen" Foreground="{StaticResource white-220}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Height="40" Width="290" CornerRadius="5" Background="Gainsboro" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="GeneratedPasswortBox" Foreground="Gray" FontSize="16" Width="235" Margin="10 0 0 0" VerticalAlignment="Center"/>
+                            <fa:IconImage Icon="Copy" ToolTip="Kopieren" x:Name="GeneratedPasswordCopyBtn" MouseLeftButtonDown="GeneratedPasswordCopyBtn_MouseLeftButtonDown" Height="20" Width="20" Foreground="#333" Cursor="Hand" Margin="15 0 0 0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Button Focusable="False" x:Name="GeneratePasswordBtn" Click="GeneratePasswordBtn_Click" Grid.Column="5" Grid.Row="2" Grid.RowSpan="2" Margin="0 0 0 0" Style="{StaticResource Button.Gray80.Over100}" Width="140" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Label Content="Generieren" Foreground="{StaticResource white-220}" FontSize="12" FontFamily="pack://application:,,,/assets/fonts/#Poppins"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Focusable="False" x:Name="GeneratePasswordCancelBtn" Click="GeneratePasswordCancelBtn_Click" Grid.Column="7" Grid.Row="2" Grid.RowSpan="2" Style="{StaticResource Button.Gray80.Over100}" Width="140" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Label Content="Schließen" Foreground="{StaticResource white-220}" FontSize="12" FontFamily="pack://application:,,,/assets/fonts/#Poppins"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <Border x:Name="DataExportWindow" HorizontalAlignment="Left" Width="0" IsHitTestVisible="False" Grid.Column="5" Grid.RowSpan="3" Grid.Row="1" CornerRadius="{StaticResource cr-default}" Background="{DynamicResource Border.Secoundary}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition Width="0"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="90"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="1" Grid.Row="1" Text="Exportieren" FontSize="14" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Foreground="Gainsboro" VerticalAlignment="Center">
+                        <TextBlock.LayoutTransform>
+                            <RotateTransform Angle="-90"/>
+                        </TextBlock.LayoutTransform>
+                    </TextBlock>
+
+                    <Button Grid.Column="5" Grid.Row="1" Style="{StaticResource Button.Trans.Over40.Pressed20}" x:Name="CloseExportBtn" Click="CloseExportBtn_Click" Width="15" Height="90" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 0">
+                            <fa:IconImage Icon="CaretLeft" Foreground="Gainsboro" Height="10" Width="10" Margin="0 0 0 0"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Grid.Column="3" Grid.Row="1" Style="{StaticResource Button.Gray80.Over100}" x:Name="ExportAsExcelBtn" Click="ExportAsExcelBtn_Click" Width="140" Height="28" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Top">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5 0 0 0">
+                                <fa:IconImage Icon="FileText" Foreground="Gainsboro" Height="15" Width="15" Margin="0 0 5 0"/>
+                                <TextBlock Text="Als Excel (.xlsx)" Foreground="Gainsboro" FontSize="12" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                    <Button Grid.Column="3" Grid.Row="1"  Style="{StaticResource Button.Gray80.Over100}" x:Name="ExportAsTextBtn" Click="ExportAsTextBtn_Click" Width="140" Height="28" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5 0 0 0">
+                                <fa:IconImage Icon="FileExcel" Foreground="Gainsboro" Height="15" Width="15" Margin="0 0 5 0"/>
+                                <TextBlock Text="Als Text (.txt)" Foreground="Gainsboro" FontSize="12" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                    <Button Grid.Column="3" Grid.Row="1"  Style="{StaticResource Button.Gray80.Over100}" x:Name="ExportAsJsonBtn" Click="ExportAsJsonBtn_Click" Width="140" Height="28" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalAlignment="Bottom">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5 0 0 0">
+                                <fa:IconImage Icon="FileContract" Foreground="Gainsboro" Height="15" Width="15" Margin="0 0 5 0"/>
+                                <TextBlock Text="Als Json (.json)" Foreground="Gainsboro" FontSize="12" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                </Grid>
+            </Border>
+
+            <Border x:Name="WindowOperationBorder" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="1" HorizontalAlignment="Right">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+
+                    <Button Focusable="False" x:Name="HelpBtn" Click="HelpBtn_Click" Style="{StaticResource Button.Trans.Over40.Pressed20}" Grid.Column="0" Height="40" Width="40" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <fa:IconImage Icon="QuestionCircle" IconFont="Solid" Foreground="{StaticResource white-220}" Height="15" Width="15" Margin="0 0 0 0"/>
+                    </Button>
+
+                    <Button Focusable="False" x:Name="WindowMinimizeBtn" Click="WindowMinimizeBtn_Click" Style="{StaticResource Button.Trans.Over40.Pressed20}" Grid.Column="1" Height="40" Width="40" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <fa:IconImage Icon="WindowMinimize" Foreground="{StaticResource white-220}" Height="15" Width="15" Margin="0 10 0 0"/>
+                    </Button>
+
+                    <Button Focusable="False" x:Name="WindowMaximize" Click="WindowMaximize_Click" Style="{StaticResource Button.Trans.Over40.Pressed20}" Grid.Column="2" Height="40" Width="40" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <fa:IconImage Icon="WindowMaximize" Foreground="{StaticResource white-220}" Height="15" Width="15" Margin="0 0 0 0"/>
+                    </Button>
+
+                    <Button Focusable="False" x:Name="WindowCloseBtn" Click="WindowCloseBtn_Click" Style="{StaticResource Button.Trans.Over40.Pressed20}" Grid.Column="3" Height="40" Width="40" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <fa:IconImage Icon="Xmark" Foreground="{StaticResource white-220}" Height="15" Width="15" Margin="0 0 0 0"/>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <Border x:Name="DataGridBorder" Grid.Column="1" Grid.ColumnSpan="7" Grid.Row="5" Background="{DynamicResource Border.Secoundary}" CornerRadius="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel x:Name="CategoriePanel" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40">
+                        <RadioButton x:Name="DataGridAllFilter" Checked="RadioButton_Checked" Margin="5 0 0 0" Style="{StaticResource ButtonLikeRadioButtonStyle}" Height="30" Width="auto" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            <TextBlock Text="Alle" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Foreground="{StaticResource white-140}" FontSize="10" Padding="15 5 15 5"/>
+                        </RadioButton>
+
+                        <RadioButton x:Name="DataGridGamesFilter" Margin="5 0 0 0" Checked="RadioButton_Checked" Style="{StaticResource ButtonLikeRadioButtonStyle}" Height="30" Width="auto" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            <TextBlock Text="Spiele" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Foreground="{StaticResource white-140}" FontSize="10" Padding="15 5 15 5"/>
+                        </RadioButton>
+
+                        <RadioButton x:Name="DataGridSocialMediaFilter" Margin="5 0 0 0" Checked="RadioButton_Checked" Style="{StaticResource ButtonLikeRadioButtonStyle}" Height="30" Width="auto" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            <TextBlock Text="Soziale Medien" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Foreground="{StaticResource white-140}" FontSize="10" Padding="15 5 15 5"/>
+                        </RadioButton>
+
+                        <RadioButton x:Name="DataGridStreamingFilter" Margin="5 0 0 0" Checked="RadioButton_Checked" Style="{StaticResource ButtonLikeRadioButtonStyle}" Height="30" Width="auto" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            <TextBlock Text="Streaming" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Foreground="{StaticResource white-140}" FontSize="10" Padding="15 5 15 5"/>
+                        </RadioButton>
+
+                        <RadioButton x:Name="DataGridShoppingFilter" Margin="5 0 0 0" Checked="RadioButton_Checked" Style="{StaticResource ButtonLikeRadioButtonStyle}" Height="30" Width="auto" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            <TextBlock Text="Shopping" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Foreground="{StaticResource white-140}" FontSize="10" Padding="15 5 15 5"/>
+                        </RadioButton>
+
+                        <RadioButton x:Name="DataGridMoneyFilter" Margin="5 0 0 0" Checked="RadioButton_Checked" Style="{StaticResource ButtonLikeRadioButtonStyle}" Height="30" Width="auto" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            <TextBlock Text="Finanzen" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Foreground="{StaticResource white-140}" FontSize="10" Padding="15 5 15 5"/>
+                        </RadioButton>
+
+                        <RadioButton x:Name="DataGridRestFilter" Margin="5 0 0 0" Checked="RadioButton_Checked" Style="{StaticResource ButtonLikeRadioButtonStyle}" Height="30" Width="auto" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            <TextBlock Text="Sonstige" FontFamily="pack://application:,,,/assets/fonts/#Poppins" Foreground="{StaticResource white-140}" FontSize="10" Padding="15 5 15 5"/>
+                        </RadioButton>
+                    </StackPanel>
+
+                    <Border x:Name="DataGridOperations" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 0 5 0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <Border x:Name="SearchBoxBorder" ToolTip="Eintrag suchen" Height="30" Width="30" Background="{StaticResource gray-50}" CornerRadius="{StaticResource cr-5}" MouseDown="SearchBoxBorder_MouseDown">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBox x:Name="SearchBoxTxt" TextChanged="TbSearch_TextChanged" LostFocus="SearchBoxTxt_LostFocus" Width="0" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="Transparent" BorderThickness="0"/>
+                                    <fa:IconImage x:Name="SearchBoxIcon" Icon="Search" Foreground="{StaticResource white-220}" Height="15" Width="15"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <DataGrid x:Name="Datagrid" 
+                                ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}" 
+                                RowStyle="{DynamicResource DataGridRowStyle}" 
+                                CellStyle="{DynamicResource DataGridCellStyle}" 
+                                FontSize="14" 
+                                FontFamily="pack://application:,,,/assets/fonts/#Poppins" 
+                                Margin="5" 
+                                BorderThickness="0" 
+                                AutoGenerateColumns="False" 
+                                AlternationCount="2" 
+                                CanUserAddRows="False" 
+                                CanUserDeleteRows="False" 
+                                CanUserReorderColumns="False" 
+                                CanUserResizeColumns="True" 
+                                CanUserResizeRows="False" 
+                                CanUserSortColumns="True" 
+                                HeadersVisibility="Column" 
+                                SelectionMode="Single" 
+                                SelectionUnit="FullRow" 
+                                IsReadOnly="True" 
+                                HorizontalGridLinesBrush="Transparent" 
+                                VerticalGridLinesBrush="Transparent" 
+                                Background="Transparent" 
+                                BorderBrush="Black" 
+                                RowHeaderWidth="0" 
+                                VerticalScrollBarVisibility="Disabled"
+                                HorizontalScrollBarVisibility="Disabled"
+                                GridLinesVisibility="Horizontal"
+                                MinRowHeight="35"
+                                EnableRowVirtualization="True"
+                                ColumnHeaderHeight="50"
+                                SelectionChanged="Datagrid_SelectionChanged"
+                                Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2">
+
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Kategorie" IsReadOnly="True" Width="*" Visibility="Collapsed">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Focusable="False" Style="{StaticResource Btn-Trans}" ToolTip="Doppelklick zum Kopieren" Height="30" Width="160">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <TextBlock Text="{Binding AppTag}" IsHitTestVisible="True"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Anwendung" SortMemberPath="Application" IsReadOnly="True" Width="200">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Focusable="False" Style="{StaticResource Btn-Trans}" ToolTip="Doppelklick zum Kopieren" Height="auto" Width="auto" MouseDoubleClick="CopyBtnApplicationFromCell_MouseDoubleClick">
+                                            <StackPanel Orientation="Horizontal">
+                                                <fa:IconImage x:Name="EntryRowColor" Margin="15 0 15 0" Icon="Circle" Height="8" Width="8" IconFont="Solid" Foreground="{Binding AppColor, Converter={StaticResource ColorConverter}}"/>
+                                                <TextBlock Text="{Binding Application}" IsHitTestVisible="True" Width="200" Height="auto" TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Website" IsReadOnly="True" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Focusable="False" Style="{StaticResource Button.Trans.Over140.Pressed80}" ToolTip="Doppelklick zum Kopieren" Height="30" Width="auto" MouseDoubleClick="OpenLink_btn">
+                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <fa:IconImage Icon="Link" IconFont="Solid" Height="16" Width="16" Foreground="Gainsboro"/>
+                                                <TextBlock Text="{Binding AppLink}" IsHitTestVisible="False" Visibility="Collapsed"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Benutzername" SortMemberPath="AppUsername" IsReadOnly="True" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="GridInfoCell" Loaded="GridInfoCell_Loaded" Focusable="False" Style="{StaticResource Button.Trans.Over140.Pressed80}" ToolTip="Doppelklick zum Kopieren" Height="auto" Width="auto" MouseDoubleClick="CopyBtnUsernameFromCell_MouseDoubleClick">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <fa:IconImage Icon="User" IconFont="Solid" Height="16" Width="16" Foreground="Gainsboro"/>
+                                                <TextBlock Text="{Binding AppUsername}" IsHitTestVisible="False" Width="130" Padding="10 0 10 0" TextWrapping="Wrap" Visibility="Collapsed"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Passwort" IsReadOnly="True" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Focusable="False" Style="{StaticResource Button.Trans.Over140.Pressed80}" ToolTip="Doppelklick zum Kopieren" Height="30" Width="auto" MouseDoubleClick="CopyBtnPasswortFromCell_MouseDoubleClick">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <fa:IconImage Icon="Key" Height="16" Width="16" Foreground="Gainsboro"/>
+                                                <TextBlock Text="{Binding AppPassword}" IsHitTestVisible="False" Visibility="Collapsed"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="E-Mail" IsReadOnly="True" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Focusable="False" Style="{StaticResource Button.Trans.Over140.Pressed80}" ToolTip="Doppelklick zum Kopieren" Height="30" Width="auto" MouseDoubleClick="CopyBtnEmailFromCell_MouseDoubleClick">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <fa:IconImage Icon="At" Height="16" Width="16" Foreground="Gainsboro"/>
+                                                <TextBlock Text="{Binding AppEmail}" IsHitTestVisible="False" Visibility="Collapsed"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="E-Mail Passwort" IsReadOnly="True" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Focusable="False" Style="{StaticResource Button.Trans.Over140.Pressed80}" ToolTip="Doppelklick zum Kopieren" Height="30" Width="auto" MouseDoubleClick="CopyBtnPasswortFromCell_MouseDoubleClick">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <fa:IconImage Icon="Key" Height="16" Width="16" Foreground="Gainsboro"/>
+                                                <TextBlock Text="{Binding AppEmailPassword}" IsHitTestVisible="False" Visibility="Collapsed"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Info" IsReadOnly="True" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="GridInfoCell" Loaded="GridInfoCell_Loaded" Focusable="False" Style="{StaticResource Button.Trans.Over140.Pressed80}" ToolTip="{Binding AppInfo}" Height="auto" Width="auto" MouseDoubleClick="CopyBtnAppInfoFromCell_MouseDoubleClick">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <fa:IconImage Icon="ExclamationCircle" IconFont="Solid" Height="16" Width="16" Foreground="Gainsboro"/>
+                                                <TextBlock Text="{Binding AppInfo}" IsHitTestVisible="True" Width="130" Padding="10 0 10 0" TextWrapping="Wrap" Visibility="Collapsed"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Dateien" IsReadOnly="True" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Focusable="False" Style="{StaticResource Button.Trans.Over140.Pressed80}" ToolTip="Doppelklick zum Kopieren" Height="30" Width="auto" MouseDoubleClick="FileLink_Click">
+                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <fa:IconImage Icon="File" IconFont="Solid" Height="16" Width="16" Foreground="Gainsboro"/>
+                                                <TextBlock Text="{Binding AppFiles}" IsHitTestVisible="False" Visibility="Collapsed"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Optionen" IsReadOnly="True" CanUserResize="False" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Button ToolTip="Eintrag bearbeiten" Focusable="False" Margin="5 0 0 0" Style="{StaticResource Button.Trans.Over140.Pressed80}" Height="30" Width="35" Click="RowEditBtn_Click" Visibility="Visible">
+                                                <fa:IconImage Icon="Gear" Height="16" Width="16" Foreground="#FFBEDCBE"/>
+                                            </Button>
+                                            <Button ToolTip="Eintrag kopieren" Focusable="False" Margin="5 0 5 0" Style="{StaticResource Button.Trans.Over140.Pressed80}" Height="30" Width="35" x:Name="CopyRowBtn" Click="CopyRowBtn_Click" Visibility="Visible">
+                                                <fa:IconImage Icon="Share" Height="16" Width="16" Foreground="{StaticResource white-220}"/>
+                                            </Button>
+                                            <Button ToolTip="Eintrag löschen" Focusable="False" Margin="0 0 5 0" Style="{StaticResource Button.Trans.Over140.Pressed80}" Height="30" Width="35" Click="RowDelBtn_Click" Visibility="Visible">
+                                                <fa:IconImage Icon="Trash" Height="16" Width="16" Foreground="#FFDCBEBE"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+
+            <Border x:Name="NotifyBorder" IsHitTestVisible="false" Opacity="0" CornerRadius="5 5 5 5" BorderThickness="1" BorderBrush="#FF505050" MaxWidth="300" MinWidth="300" Background="#FF1E1E1E" Grid.Column="0" Grid.ColumnSpan="20" Grid.Row="0" Grid.RowSpan="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 0">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="10 0 0 0" Source="/Assets/Icon/AccountManagerIcon.png" Height="20" Width="20"/>
+                        <TextBlock Padding="10" x:Name="NotifyHeaderTxt" Text="Benachrechtigung!" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="pack://application:,,,/assets/fonts/#Poppins" FontSize="14" Foreground="{StaticResource white-220}"/>
+                    </StackPanel>
+                    <Separator Height="1" Width="280">
+                        <Separator.Background>
+                            <LinearGradientBrush EndPoint="0.0,1" StartPoint="1.0,0">
+                                <GradientStop Color="Transparent"/>
+                                <GradientStop Color="Transparent" Offset="1"/>
+                                <GradientStop Color="Gainsboro" Offset="0.5"/>
+                            </LinearGradientBrush>
+                        </Separator.Background>
+                    </Separator>
+                    <TextBlock Padding="10" x:Name="NotifyTxt" Text="Hallo, ich bin eine Benachrechtigung! Und ich muss dir was ganz ganz dringendes sagen!" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="pack://application:,,,/assets/fonts/#Poppins" FontSize="13" Foreground="{StaticResource white-220}"/>
+                </StackPanel>
+            </Border>
+
+            <Border x:Name="QuestBoxWindow" HorizontalAlignment="Left" Width="0" IsHitTestVisible="False" Grid.Column="5" Grid.RowSpan="3" Grid.Row="1" CornerRadius="{StaticResource cr-default}" Background="{DynamicResource Border.Secoundary}" BorderBrush="#FF646464" BorderThickness="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+
+                    <fa:IconImage Grid.Column="1" Grid.Row="1" x:Name="QuestBoxIcon" Icon="Warning" Height="40" Width="40" Foreground="#FFBE8200" HorizontalAlignment="Right"/>
+                    <TextBlock Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="QuestBoxQuest" Foreground="{StaticResource white-220}" TextWrapping="Wrap" FontSize="13" FontFamily="pack://application:,,,/assets/fonts/#Poppins"/>
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                        <Button Focusable="False" Margin="0 0 20 0" Style="{StaticResource Button.Gray80.Over100}" Height="30" Width="110" IsDefault="True" x:Name="ComfirmQuestBox" Click="ComfirmQuestBox_Click" Visibility="Visible">
+                            <fa:IconImage Icon="CheckCircle" Height="20" Width="20" Foreground="green"/>
+                        </Button>
+                        <Button Focusable="False" Margin="20 0 0 0" Style="{StaticResource Button.Gray80.Over100}" Height="30" Width="110" x:Name="CancelQuestBox" Click="CancelQuestBox_Click" Visibility="Visible">
+                            <fa:IconImage Icon="XmarkCircle" Height="20" Width="20" Foreground="Red"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <TextBlock Margin="0 0 5 0" Grid.Row="7" Grid.Column="7" x:Name="AppVersion" Text="v1.0.1" Foreground="{StaticResource Foreground.Secoundary}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        </Grid>
+    </Border>
+</Window>
+ 

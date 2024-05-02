@@ -1,0 +1,191 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>Account_Manager</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Assets\Icon\AccountManagerIcon.ico</ApplicationIcon>
+    <PackageIcon></PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\fonts\code128.ttf" />
+    <None Remove="Assets\fonts\ConnectCode39.ttf" />
+    <None Remove="Assets\fonts\Passwordfont-Regular.ttf" />
+    <None Remove="Assets\fonts\Poppins-Black.ttf" />
+    <None Remove="Assets\fonts\Poppins-BlackItalic.ttf" />
+    <None Remove="Assets\fonts\Poppins-Bold.ttf" />
+    <None Remove="Assets\fonts\Poppins-BoldItalic.ttf" />
+    <None Remove="Assets\fonts\Poppins-ExtraBold.ttf" />
+    <None Remove="Assets\fonts\Poppins-ExtraBoldItalic.ttf" />
+    <None Remove="Assets\fonts\Poppins-ExtraLight.ttf" />
+    <None Remove="Assets\fonts\Poppins-ExtraLightItalic.ttf" />
+    <None Remove="Assets\fonts\Poppins-Italic.ttf" />
+    <None Remove="Assets\fonts\Poppins-Light.ttf" />
+    <None Remove="Assets\fonts\Poppins-LightItalic.ttf" />
+    <None Remove="Assets\fonts\Poppins-Medium.ttf" />
+    <None Remove="Assets\fonts\Poppins-MediumItalic.ttf" />
+    <None Remove="Assets\fonts\Poppins-Regular.ttf" />
+    <None Remove="Assets\fonts\Poppins-SemiBold.ttf" />
+    <None Remove="Assets\fonts\Poppins-SemiBoldItalic.ttf" />
+    <None Remove="Assets\fonts\Poppins-Thin.ttf" />
+    <None Remove="Assets\fonts\Poppins-ThinItalic.ttf" />
+    <None Remove="Assets\Icon\AccountManagerIcon.ico" />
+    <None Remove="Assets\Img\DefaultProfilimage.png" />
+    <None Remove="Assets\Img\help_addaccount_1.png" />
+    <None Remove="Assets\Img\help_addaccount_2.png" />
+    <None Remove="Assets\Img\help_addaccount_3.png" />
+    <None Remove="Assets\Img\help_addaccount_4.png" />
+    <None Remove="Assets\Img\help_delaccount_1.png" />
+    <None Remove="Assets\Img\help_delaccount_2.png" />
+    <None Remove="Assets\Img\help_delaccount_3.png" />
+    <None Remove="data\data.json" />
+    <None Remove="View\AccountManagerIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Styles\Buttons.xaml" />
+    <Page Remove="Styles\DataGrid.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="EPPlus" Version="7.1.0" />
+    <PackageReference Include="FontAwesome.Sharp" Version="6.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\fonts\code128.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\ConnectCode39.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-Black.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-BlackItalic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-Bold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-BoldItalic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-ExtraBold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-ExtraBoldItalic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-ExtraLight.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-ExtraLightItalic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-Italic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-Light.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-LightItalic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-Medium.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-MediumItalic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-SemiBold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-SemiBoldItalic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-Thin.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\fonts\Poppins-ThinItalic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icon\AccountManagerIcon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icon\AccountManagerIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Img\DefaultProfilimage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Img\help_addaccount_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Img\help_addaccount_2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Img\help_addaccount_3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Img\help_addaccount_4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Img\help_delaccount_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Img\help_delaccount_2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Img\help_delaccount_3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="data\data.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Buttons.xaml" />
+    <Resource Include="Styles\DataGrid.xaml" />
+    <Resource Include="View\AccountManagerIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="VersionResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>VersionResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="VersionResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>VersionResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\Icon\AccountManagerIcon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

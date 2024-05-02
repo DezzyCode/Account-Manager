@@ -1,0 +1,8 @@
+C:\Users\denny\Desktop\Account_Manager_v1.2.3\Account Manager.pdb
+C:\Users\denny\Desktop\Account_Manager_v1.2.3\Account Manager.dll.config
+C:\Users\denny\Desktop\Account_Manager_v1.2.3\D3DCompiler_47_cor3.dll
+C:\Users\denny\Desktop\Account_Manager_v1.2.3\PenImc_cor3.dll
+C:\Users\denny\Desktop\Account_Manager_v1.2.3\PresentationNative_cor3.dll
+C:\Users\denny\Desktop\Account_Manager_v1.2.3\vcruntime140_cor3.dll
+C:\Users\denny\Desktop\Account_Manager_v1.2.3\wpfgfx_cor3.dll
+C:\Users\denny\Desktop\Account_Manager_v1.2.3\Account Manager.exe

@@ -1,0 +1,76 @@
+{
+  "Users": [
+    {
+      "Username": "123",
+      "Email": "123@123",
+      "Password": "123",
+      "RememberMe": false,
+      "ProfileImagePath": null,
+      "Data": [
+        {
+          "ID": "1",
+          "Application": "Anwendung",
+          "AppUsername": "Benutzername",
+          "AppPassword": "Passwort",
+          "AppEmail": "E-Mail",
+          "AppEmailPassword": "E-Mail Passwort",
+          "AppInfo": "Info"
+        }
+      ]
+    },
+    {
+      "Username": "Dezzy",
+      "Email": "denny.vikic@gmail.com",
+      "Password": "Dennyv211.",
+      "RememberMe": true,
+      "ProfileImagePath": "G:\\VetooProduziert Logo\\Vetoo4.png",
+      "Data": [
+        {
+          "ID": "1",
+          "Application": "Riot Games",
+          "AppUsername": "xdaddel",
+          "AppPassword": "RoccatXTDkone1211",
+          "AppEmail": "denny.vikic@gmail.com",
+          "AppEmailPassword": "RoccatXTDkone1211.",
+          "AppInfo": "Tel:. 015157901466"
+        },
+        {
+          "ID": "2",
+          "Application": "Steam",
+          "AppUsername": "veteran211",
+          "AppPassword": "RoccatXTDkone1211",
+          "AppEmail": "denny.vikic@gmail.com",
+          "AppEmailPassword": "RoccatXTDkone1211.",
+          "AppInfo": "Tel:. 015157901466"
+        },
+        {
+          "ID": "3",
+          "Application": "Riot Games",
+          "AppUsername": "xbabbelx",
+          "AppPassword": "Dennyv211",
+          "AppEmail": "/",
+          "AppEmailPassword": "/",
+          "AppInfo": "Irgendein Smurf"
+        },
+        {
+          "ID": "4",
+          "Application": "Google",
+          "AppUsername": "E-Mail",
+          "AppPassword": "RoccatXTDkone1211.",
+          "AppEmail": "/",
+          "AppEmailPassword": "/",
+          "AppInfo": "Tel:. 015157901466"
+        },
+        {
+          "ID": "5",
+          "Application": "Riot Games",
+          "AppUsername": "ehrenpandatv",
+          "AppPassword": "M0th3rfucker!!",
+          "AppEmail": "/",
+          "AppEmailPassword": "/",
+          "AppInfo": "Kim's Account"
+        }
+      ]
+    }
+  ]
+}

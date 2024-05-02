@@ -1,0 +1,50 @@
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\Account Manager.exe
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\Account Manager.dll.config
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\Account Manager.deps.json
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\Account Manager.runtimeconfig.json
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\Account Manager.dll
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\Account Manager.pdb
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\CommunityToolkit.Mvvm.dll
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\FontAwesome.Sharp.dll
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\Account Manager.csproj.AssemblyReference.cache
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\Styles\Shared.baml
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\View\Help.g.cs
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\View\Login.g.cs
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\View\MainWindow.g.cs
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\View\Regist.g.cs
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\Account Manager_MarkupCompile.cache
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\Account Manager_MarkupCompile.lref
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\View\Help.baml
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\View\Login.baml
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\View\MainWindow.baml
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\View\Regist.baml
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\Account Manager.g.resources
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\Account_Manager.VersionResources.resources
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\Account Manager.csproj.GenerateResource.cache
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\Account Manager.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\Account Manager.AssemblyInfoInputs.cache
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\Account Manager.AssemblyInfo.cs
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\Account Manager.csproj.CoreCompileInputs.cache
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\Account Manager.csproj.CopyComplete
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\Account Manager.dll
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\refint\Account Manager.dll
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\Account Manager.pdb
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\Account Manager.genruntimeconfig.cache
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\ref\Account Manager.dll
+C:\Users\denny\Desktop\Account Manager\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\EPPlus.dll
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\EPPlus.Interfaces.dll
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\EPPlus.System.Drawing.dll
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\Microsoft.Extensions.Configuration.dll
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\Microsoft.Extensions.Primitives.dll
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\System.Security.Cryptography.Pkcs.dll
+C:\Users\denny\Desktop\Account Manager\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
